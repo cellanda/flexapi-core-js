@@ -15,7 +15,7 @@
     "transform",
     "cross reference"
   ],
-  "main": "./",
+  "main": "object-vista.js",
   "scripts": {
   },
   "engines": {
@@ -43,6 +43,6 @@
   ],
   "readme": "map, transform and cross refence an object",
   "readmeFilename": "README.md",
-  "_id": "object-vista@0.0.0",
+  "_id": "object-vista@0.0.1",
   "_from": "object-vista@"
 }
