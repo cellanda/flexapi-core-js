@@ -1,0 +1,48 @@
+{
+  "name": "object-vista",
+  "version": "0.0.1",
+  "description": "map, transform and cross refence an object",
+  "homepage": "http://www.cellanda.com/js/object-vista",
+  "author": {
+    "name": "terry pothecary",
+    "email": "terry@cellanda.com",
+    "url": "http://www.cellanda.com/people/terry"
+  },
+  "contributors": [
+  ],
+  "keywords": [
+    "map",
+    "transform",
+    "cross reference"
+  ],
+  "main": "./",
+  "scripts": {
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "q": "~0.9.4",
+    "async": "~0.2.10",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cellanda/object-vista-js"
+  },
+  "bugs": {
+    "url": "https://github.com/cellanda/object-vista-js/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/cellanda/object-vista-js/LICENSE"
+    }
+  ],
+  "readme": "map, transform and cross refence an object",
+  "readmeFilename": "README.md",
+  "_id": "object-vista@0.0.0",
+  "_from": "object-vista@"
+}
