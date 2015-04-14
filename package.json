@@ -1,6 +1,6 @@
 {
   "name": "flexapi-core",
-  "version": "0.0.1-01",
+  "version": "0.0.1-2",
   "description": "map, transform and cross refence an object",
   "homepage": "http://www.cellanda.com/js/flexapi-core",
   "author": {
@@ -8,16 +8,14 @@
     "email": "terry@cellanda.com",
     "url": "http://www.cellanda.com/people/terry"
   },
-  "contributors": [
-  ],
+  "contributors": [],
   "keywords": [
     "map",
     "transform",
     "cross reference"
   ],
   "main": "main.js",
-  "scripts": {
-  },
+  "scripts": {},
   "engines": {
     "node": ">= 0.8.0"
   },
