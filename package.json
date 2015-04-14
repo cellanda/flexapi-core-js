@@ -42,7 +42,7 @@
       "url": "https://github.com/cellanda/flexapi-core-js/LICENSE"
     }
   ],
-  "readme": "map, transform and cross refence an object",
+  "readme": "Flexible API and Facade generator. Maps a complex system to a simple interface",
   "readmeFilename": "README.md",
   "_id": "flexapi-core@0.0.1",
   "_from": "flexapi-core@"
