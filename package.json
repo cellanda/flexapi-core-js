@@ -1,7 +1,7 @@
 {
   "name": "flexapi-core",
   "version": "0.0.1-2",
-  "description": "map, transform and cross refence an object",
+  "description": "Flexible API and Facade generator. Maps a complex system to a simple interface",
   "homepage": "http://www.cellanda.com/js/flexapi-core",
   "author": {
     "name": "terry pothecary",
