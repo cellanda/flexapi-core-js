@@ -1,5 +1,5 @@
 /*global require global describe it expect jasmine spyOn*/
-var Logger = require('../lib/logger');
+var Logger = require('../../lib/logger');
 
 
 describe('logger', function () {

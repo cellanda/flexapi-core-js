@@ -1,6 +1,6 @@
 /*global require module jasmine beforeEach*/
 
-var fixtures = {
+var helpers = {
     walkObject: function (result, name, node, query) {
         return _walkObject(result, name, node, query);
 
@@ -23,10 +23,10 @@ var fixtures = {
         }
     },
 
-    getChildren: function (node, query, index, path, name, logger) {
+    getChildren: function (node, query, index, logger, done) {
         var result = [];
-        fixtures.walkObject(result, '', node, query);
-        return result;
+        helpers.walkObject(result, '', node, query);
+        done(null, result);
     },
 
 
@@ -146,49 +146,8 @@ var fixtures = {
             throw new Error('objects are different:\r' + msg.fullText);
         }
         return result;
-    },
-
-    sampleObjectFixture: function () {
-        return {
-            customers: [
-                {
-                    person: {
-                        firstname: 'john',
-                        lastname: 'smith'
-                    }
-                },
-                {
-                    person: {
-                        firstname: 'fred',
-                        lastname: 'astair'
-                    }
-                }
-            ],
-            employees: [
-                {
-                    person: {
-                        lastname: 'brookes'
-                    }
-                },
-                {
-                    person: {
-                        firstname: 'stanley',
-                        lastname: 'jones'
-                    }
-                }
-            ],
-            people: {
-                person1: {
-                    firstname: 'samantha',
-                    lastname: 'fox'
-                },
-                person2: {
-                    firstname: 'tessa',
-                    lastname: 'may'
-                }
-            }
-        };
     }
+
 
 };
 
@@ -199,7 +158,7 @@ beforeEach(function () {
             var pass;
             var message;
             try {
-                pass = fixtures.compare(actual, expected);
+                pass = helpers.compare(actual, expected);
             }
             catch (ex) {
                 pass = false;
@@ -213,4 +172,4 @@ beforeEach(function () {
     });
 });
 
-module.exports = fixtures;
+module.exports = helpers;

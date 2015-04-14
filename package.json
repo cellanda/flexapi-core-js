@@ -1,8 +1,8 @@
 {
-  "name": "object-vista",
-  "version": "0.0.1",
+  "name": "flexapi-core",
+  "version": "0.0.1-01",
   "description": "map, transform and cross refence an object",
-  "homepage": "http://www.cellanda.com/js/object-vista",
+  "homepage": "http://www.cellanda.com/js/flexapi-core",
   "author": {
     "name": "terry pothecary",
     "email": "terry@cellanda.com",
@@ -15,7 +15,7 @@
     "transform",
     "cross reference"
   ],
-  "main": "object-vista.js",
+  "main": "main.js",
   "scripts": {
   },
   "engines": {
@@ -27,22 +27,23 @@
     "underscore": "~1.5.2"
   },
   "devDependencies": {
+    "jasmine-node": "~1.11.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cellanda/object-vista-js"
+    "url": "https://github.com/cellanda/flexapi-core-js"
   },
   "bugs": {
-    "url": "https://github.com/cellanda/object-vista-js/issues"
+    "url": "https://github.com/cellanda/flexapi-core-js/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/cellanda/object-vista-js/LICENSE"
+      "url": "https://github.com/cellanda/flexapi-core-js/LICENSE"
     }
   ],
   "readme": "map, transform and cross refence an object",
   "readmeFilename": "README.md",
-  "_id": "object-vista@0.0.1",
-  "_from": "object-vista@"
+  "_id": "flexapi-core@0.0.1",
+  "_from": "flexapi-core@"
 }

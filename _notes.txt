@@ -1,0 +1,20 @@
+todo:
+    implement property parameter 'wait'
+    implement module user function 'compile'
+    implement module user function 'evaluate'
+    implement module user function 'action'
+    implement function properties
+    implement method of build tree to reference other branches
+    implement verify
+
+
+what is this project:
+
+object interface
+property mapper
+object view
+accessor
+translator
+facade
+api
+flexible
