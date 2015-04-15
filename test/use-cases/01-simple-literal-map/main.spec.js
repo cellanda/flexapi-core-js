@@ -11,7 +11,7 @@ using just one source file
 ------------------------------------------------------------------------------*/
 
 
-var Mapper = require('../../../lib/mapper');
+var mapper = require('../../../index').mapper;
 
 var getChildren = require('../../_helpers').getChildren;
 var fixture = require('../../_fixtures').sampleObjectFixture;
@@ -19,54 +19,58 @@ var fixture = require('../../_fixtures').sampleObjectFixture;
 
 describe('use-cases simple literal map', function () {
 
-    it('transforms an object', function (done) {
-        var mapper = new Mapper();
-
-        var myLogger = {
-            logMessage: function (message) {
-                //severities = ['log', 'info', 'warn', 'fail', 'error', 'important', 'fatal'];
-                //message = {time: ?, severity: ?, context: ?, text: ?, data: ?};
-                //message.context = {path: [sourceGrandParentNode, sourceParentNode, sourceNode]} 
-                //message.context = {path: [sourceGrandParentNode, sourceParentNode, sourceNode, firstSelectorStep, secondSelectorStep, currentSelectorStep]} 
-
-                var data = message.data;
-                if (data) {
-                    delete message.data;
-                    console.log(JSON.stringify(message), data);
-                }
-                else {
-                    console.log(JSON.stringify(message));
-                }
-
+    // Set up mapper
+    var myMapper = mapper.clone();
+    myMapper.settings.logger = {
+        logMessage: function (message) {
+            //message = {time: ?, severity: ?, context: ?, text: ?, data: ?};
+            //message severities = ['log', 'info', 'warn', 'fail', 'error', 'important', 'fatal'];
+            //message.context = {path: [sourceGrandParentNode, sourceParentNode, sourceNode]} 
+            //message.context = {path: [sourceGrandParentNode, sourceParentNode, sourceNode, firstSelectorStep, secondSelectorStep, currentSelectorStep]} 
+            var data = message.data;
+            if (data) {
+                delete message.data;
+                /*console.log(JSON.stringify(message), data);*/
             }
-        };
-        mapper.settings.logger = myLogger;
-
-
-        var objectToTransform = new fixture();
-
-        var transformationModule = {
-            content: {
-                people: mapper.property.get(getChildren, 'person'),
-                employeeLastnames: mapper.property.get(getChildren, 'employees')(0).content({
-                    lastnames: mapper.property.get(getChildren, 'lastname')
-                }),
-                customerFirstnames: mapper.property.get(getChildren, 'customers')(0).get(getChildren, 'firstname'),
-                middlenames: mapper.property.get(getChildren, 'middlename'),
-                firstMiddlename: mapper.property.get(getChildren, 'middlename')(0),
-                employeeMiddlenamesOptional: mapper.property.get(getChildren, 'employees')(0).content({
-                    middlenames: mapper.property.required(false).get(getChildren, 'middlename')
-                }),
-                employeeMiddlenamesRequired: mapper.property.get(getChildren, 'employees')(0).content({
-                    middlenames: mapper.property.required(true).get(getChildren, 'middlename')
-                })
+            else {
+                /*console.log(JSON.stringify(message));*/
             }
-        };
+        }
+    };
 
-        var transformedObject;
-        mapper.evaluate(transformationModule, objectToTransform).then( function (result) {
-            transformedObject = result;
 
+    // define the transform
+    var transformationModule = {
+        content: {
+            people: myMapper.property.get(getChildren, 'person').content({
+                firstname: myMapper.property.get(getChildren, 'firstname')(0),
+                lastname: myMapper.property.get(getChildren, 'lastname')(0)
+            }),
+            employeeLastnames: myMapper.property.get(getChildren, 'employees')(0).content({
+                lastnames: myMapper.property.get(getChildren, 'lastname')
+            }),
+            customerFirstnames: myMapper.property.get(getChildren, 'customers').get(getChildren, 'firstname'),
+            middlenames: myMapper.property.get(getChildren, 'middlename'),
+            firstMiddlename: myMapper.property.get(getChildren, 'middlename')(0),
+            employeeMiddlenamesOptional: myMapper.property.get(getChildren, 'employees')(0).content({
+                middlenames: myMapper.property.required(false).get(getChildren, 'middlename')
+            }),
+            employeeMiddlenamesRequired: myMapper.property.get(getChildren, 'employees')(0).content({
+                middlenames: myMapper.property.required(true).get(getChildren, 'middlename')
+            })
+        }
+    };
+    var transformed = myMapper.compile(transformationModule);
+
+
+    // bind to the object to tranform
+    var objectToTransform = new fixture();
+    transformed._ = objectToTransform
+
+
+    it('transforms the entire object', function (done) {
+        // use the transform of the entire object
+        transformed._.then( function (transformedObject) {
             var expectedResult = {
                 people: [
                     {
@@ -78,6 +82,7 @@ describe('use-cases simple literal map', function () {
                         lastname: 'astair'
                     },
                     {
+                        firstname: null,
                         lastname: 'brookes'
                     },
                     {
@@ -102,8 +107,50 @@ describe('use-cases simple literal map', function () {
                 },
                 employeeMiddlenamesRequired: null
             };
-            //console.log('result\n', result);
+            //console.log('result\n', transformedObject);
             expect(transformedObject).toCompareTo(expectedResult);
+
+            done();
+        });
+    });
+
+
+    it('transforms part of the object', function (done) {
+        // use the transform of part of the object
+        transformed.people._.then( function (transformedObject) {
+            var expectedResult = [
+                {
+                    firstname: 'john',
+                    lastname: 'smith'
+                },
+                {
+                    firstname: 'fred',
+                    lastname: 'astair'
+                },
+                {
+                    firstname: null,
+                    lastname: 'brookes'
+                },
+                {
+                    firstname: 'stanley',
+                    lastname: 'jones'
+                }
+            ];
+            //console.log('result\n', transformedObject);
+            expect(transformedObject).toCompareTo(expectedResult);
+
+            done();
+        });
+    });
+
+
+    it('transforms a single property', function (done) {
+        // use the transform to access a single property
+        transformed.people(1).firstname._.then( function (transformedObject) {
+            var expectedResult = 'fred';
+            //console.log('result\n', transformedObject);
+            expect(transformedObject).toCompareTo(expectedResult);
+
             done();
         });
     });

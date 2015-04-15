@@ -8,13 +8,3 @@ todo:
     implement verify
 
 
-what is this project:
-
-object interface
-property mapper
-object view
-accessor
-translator
-facade
-api
-flexible

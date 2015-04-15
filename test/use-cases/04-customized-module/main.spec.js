@@ -22,7 +22,7 @@ var fixtures = require('../../_fixtures');
 var fixture = fixtures.sampleObjectFixture;
 
 
-describe('use-cases customized module', function () {
+xdescribe('use-cases customized module', function () {
 
     it('transforms an object', function (done) {
         var mapper = myMapper;
