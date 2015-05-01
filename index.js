@@ -1,4 +1,4 @@
 /*global require module*/
 module.exports = {
-	mapper: new require("./lib/mapper")()
+	mapper: require('./lib/mapper')
 }

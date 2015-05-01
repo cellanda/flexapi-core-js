@@ -1,10 +1,13 @@
 todo:
     implement property parameter 'wait'
-    implement module user function 'compile'
-    implement module user function 'evaluate'
     implement module user function 'action'
     implement function properties
     implement method of build tree to reference other branches
     implement verify
 
-
+    Change property builder format to $required.$is.getter.getter.$({})
+    Implement property builder for $has.getter.getter
+    Change compiled node so that leaf node don't need the ._
+    
+    implement an synchronous compiled node
+    make the use of the compile interface more consistent

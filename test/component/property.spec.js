@@ -65,7 +65,6 @@ describe('property', function () {
             var description = scenario.description + '(test case: ' + scenario.test + ')';
 
             it('with a unique single level selector and ' + description, function (done) {
-                var resolved = false;
                 var property = new Property(null);
                 property.selector.addGet('children', getChildren, 'person', scenario.index);
                 property.module = scenario.module;
@@ -78,17 +77,18 @@ describe('property', function () {
                 api._ = fixture();
                 api._
                 .then(function (result) {
-                    resolved = true;
-                    expect(result).toCompareTo(scenario.expectedResult);
-                })
-                .finally(function () {
-                    expect(resolved).toBe(true);
-                    done();
+                    try {
+                        expect(result).toCompareTo(scenario.expectedResult);
+                        done();
+                    }
+                    catch(ex) {
+                        expect(ex.toString()).toBe(false);
+                        done();
+                    }
                 });
             });
 
             it('with an indexed list single level selector and ' + description, function (done) {
-                var resolved = false;
                 var property = new Property(null);
                 property.selector.addGet('children', getChildren, 'person');
                 property.module = scenario.module;
@@ -103,12 +103,14 @@ describe('property', function () {
                 api._ = fixture();
                 api(scenario.index)._
                 .then(function (result) {
-                    resolved = true;
-                    expect(result).toCompareTo(scenario.expectedResult);
-                })
-                .finally(function () {
-                    expect(resolved).toBe(true);
-                    done();
+                    try {
+                        expect(result).toCompareTo(scenario.expectedResult);
+                        done();
+                    }
+                    catch(ex) {
+                        expect(ex.toString()).toBe(false);
+                        done();
+                    }
                 });
             });
 
@@ -119,7 +121,6 @@ describe('property', function () {
     describe('evaluates simple property with an unindexed list single level selector and', function () {
 
         it('no module', function (done) {
-            var resolved = false;
             var property = new Property(null);
             property.selector.addGet('children', getChildren, 'person');
 
@@ -152,17 +153,18 @@ describe('property', function () {
             api._ = fixture();
             api._
             .then(function (result) {
-                resolved = true;
-                expect(result).toCompareTo(expectedResult);
-            })
-            .finally(function () {
-                expect(resolved).toBe(true);
-                done();
+                try {
+                    expect(result).toCompareTo(expectedResult);
+                    done();
+                }
+                catch(ex) {
+                    expect(ex.toString()).toBe(false);
+                    done();
+                }
             });
         });
 
         it('a constant object module', function (done) {
-            var resolved = false;
             var property = new Property(null);
             property.selector.addGet('children', getChildren, 'person');
             property.module = {content: {test: 'value'}};
@@ -180,12 +182,14 @@ describe('property', function () {
             api._ = fixture();
             api._
             .then(function (result) {
-                resolved = true;
-                expect(result).toCompareTo(expectedResult);
-            })
-            .finally(function () {
-                expect(resolved).toBe(true);
-                done();
+                try {
+                    expect(result).toCompareTo(expectedResult);
+                    done();
+                }
+                catch(ex) {
+                    expect(ex.toString()).toBe(false);
+                    done();
+                }
             });
         });
 

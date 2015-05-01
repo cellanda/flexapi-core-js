@@ -1,5 +1,5 @@
 /*global require global describe it expect*/
-var Mapper = require('../../lib/mapper');
+var mapper = require('../../lib/mapper');
 var Module = require('../../lib/module');
 var selector = require('../../lib/selector')();
 var Logger = require('../../lib/logger');
@@ -11,13 +11,17 @@ var scenarios;
 
 
 describe('module customize', function () {
+    var myMapper;
+
+    beforeEach(function() {
+        myMapper = mapper.clone();
+    });
+
 
     it('evaluates module with custom selector', function (done) {
-        try {
-        var mapper = new Mapper();
-        mapper.settings.property.onGet('children').call(getChildren);
+        myMapper.settings.property.onGet('children').call(getChildren);
         var subModule = {
-            found: mapper.property.get.children('firstname').required(false)
+            found: myMapper.property.get.children('firstname').required(false)
         };
         var tmpFixture = fixture;
         var logger = new Logger();
@@ -35,23 +39,24 @@ describe('module customize', function () {
             }
         };
 
-        module.evaluate(mapper, tmpFixture, logger).done(function (instance) {
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toEqual(0);
-            done();
+        module.evaluate(myMapper, tmpFixture, logger)
+        .then(function (instance) {
+            try {
+                expect(instance).toCompareTo(expectedInstance);
+                expect(logger.getMessages().length).toEqual(0);
+                done();
+            }
+            catch(ex) {
+                expect(ex.toString()).toBe(false);
+                done();
+            }
         });
-        }
-        catch(ex) {
-            console.log(ex);
-            done();
-        }
     });
 
     it('evaluates module with custom selector set as unique', function (done) {
-        var mapper = new Mapper();
-        mapper.settings.property.onGet('children').call(getChildren).unique();
+        myMapper.settings.property.onGet('children').call(getChildren).unique();
         var subModule = {
-            found: mapper.property.get.children('firstname').required(false)
+            found: myMapper.property.get.children('firstname').required(false)
         };
         var tmpFixture = fixture;
         var logger = new Logger();
@@ -59,10 +64,17 @@ describe('module customize', function () {
 
         var expectedInstance = {test: {found: 'john'}};
 
-        module.evaluate(mapper, tmpFixture, logger).done(function (instance) {
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toEqual(0);
-            done();
+        module.evaluate(myMapper, tmpFixture, logger)
+        .then(function (instance) {
+            try {
+                expect(instance).toCompareTo(expectedInstance);
+                expect(logger.getMessages().length).toEqual(0);
+                done();
+            }
+            catch(ex) {
+                expect(ex.toString()).toBe(false);
+                done();
+            }
         });
     });
 

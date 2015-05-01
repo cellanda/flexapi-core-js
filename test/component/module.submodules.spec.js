@@ -1,7 +1,6 @@
 /*global require global describe it expect*/
 var q = require("q");
-var Mapper = require('../../lib/mapper');
-var mapper = new Mapper();
+var mapper = require('../../lib/mapper');
 var Module = require('../../lib/module');
 var Selector = require('../../lib/selector');
 var Logger = require('../../lib/logger');

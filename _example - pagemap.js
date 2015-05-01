@@ -65,7 +65,7 @@ var pageMaps = {
             continue: mapper.property.module(function (mapper, compiler) {
                 var subModule = compiler.compile({
                     content: {
-                        characterPos: mapper.property.required.get.children('#frmentermemorableinformation1 label').get.property('innerHTML').get.split(' ')(1),
+                        characterPos: mapper.property.$required.$is.children('#frmentermemorableinformation1 label').html.split(' ')(1),
                         character: [
                             mapper.property.required.get.child('[name=frmentermemorableinformation1\\:strEnterMemorableInformation_memInfo1]'),
                             mapper.property.required.get.child('[name=frmentermemorableinformation1\\:strEnterMemorableInformation_memInfo2]'),
@@ -122,14 +122,14 @@ var pageMaps = {
             }
         },
         content: {
-            customer: pm.property.required.wait.get.child('.user').content({
-                name: pm.property.required.get.child('.name').get.property('innerHTML')
+            customer: pm.property.$required.$wait.$is.child('.user').$content({
+                name: pm.property.$required.$is.child('.name').html
             }),
-            accounts: pm.property.required.waitFor('page.customer').get.children('.accountDetails').content({
-                name: pm.property.required.get.child('h2 a').get.property('innerHTML').get.match(/<.*?>([0-9,a-z, ]*)/i)(1),
-                link: pm.property.required.get.child('h2 a').get.property('href'),
-                sortCode: pm.property.optional.get.property('innerHTML').get.match(/sort code.*?>([0-9]{2}-[0-9]{2}-[0-9]{2})</i)(1),
-                number: pm.property.required.get.property('innerHTML').get.match(/ number.*?>([0-9]*)</i)(1)
+            accounts: pm.property.$required.$waitFor('page.customer').$is.children('.accountDetails').$content({
+                name: pm.property.$required.$is.child('h2 a').html.match(/<.*?>([0-9,a-z, ]*)/i)(1),
+                link: pm.property.$required.$is.child('h2 a').href,
+                sortCode: pm.property.$optional.$is.html.match(/sort code.*?>([0-9]{2}-[0-9]{2}-[0-9]{2})</i)(1),
+                number: pm.property.$required.$is.html.match(/ number.*?>([0-9]*)</i)(1)
             })
         }
     }),
@@ -146,9 +146,9 @@ var pageMaps = {
         },
         content: {
             details: {
-                numbers: pm.property.required.get.child('.myAccountDetails .numbers').get.property('innerHTML'),
-                balance: pm.property.required.get.child('.myAccountDetails .balance').get.property('innerHTML').get.money(),
-                available: pm.property.required.get.child('.myAccountDetails .accountBalance').get.property('innerHTML').get.money({intro: 'funds available:'}),
+                numbers: pm.property.$required.$is.child('.myAccountDetails .numbers').html,
+                balance: pm.property.$required.$is.child('.myAccountDetails .balance').html.money(),
+                available: pm.property.$required.$is.child('.myAccountDetails .accountBalance').html.money({intro: 'funds available:'}),
                 overdraft: pm.property.required.get.child('.myAccountDetails .accountBalance').get.property('innerHTML').get.money({intro: 'overdraft limit:'})
             },
             statement: {

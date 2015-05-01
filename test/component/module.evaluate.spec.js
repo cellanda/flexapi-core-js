@@ -28,10 +28,14 @@ describe('module evaluate', function () {
 
         module.evaluate(null, fixture())
         .then(function (result) {
-            expect(result).toCompareTo(fixture());
-        })
-        .finally(function () {
-            done();
+            try {
+                expect(result).toCompareTo(fixture());
+                done();
+            }
+            catch(ex) {
+                expect(ex.toString()).toBe(false);
+                done();
+            }
         });
     });
 
@@ -65,7 +69,6 @@ describe('module evaluate', function () {
 
             var expectedApi = scenario.expectedApi;
             var expectedResult = scenario.expectedResult;
-            var resolved = 0;
 
 
             var api = module.compile(null);
@@ -73,12 +76,14 @@ describe('module evaluate', function () {
             api._ = node;
             api._
             .then(function (result) {
-                resolved++;
-                expect(result).toCompareTo(expectedResult);
-            })
-            .finally(function () {
-                expect(resolved).toBe(1);
-                done();
+                try {
+                    expect(result).toCompareTo(expectedResult);
+                    done();
+                }
+                catch(ex) {
+                    expect(ex.toString()).toBe(false);
+                    done();
+                }
             });
         });
     });
@@ -112,19 +117,20 @@ describe('module evaluate', function () {
             }
         };
         var expectedResult = {test: subModule()};
-        var resolved = 0;
 
         var api = module.compile(null);
         expect(api).toCompareTo(expectedApi);
         api._ = node;
         api._
         .then(function (result) {
-            resolved++;
-            expect(result).toCompareTo(expectedResult);
-        })
-        .finally(function () {
-            expect(resolved).toBe(1);
-            done();
+            try {
+                expect(result).toCompareTo(expectedResult);
+                done();
+            }
+            catch(ex) {
+                expect(ex.toString()).toBe(false);
+                done();
+            }
         });
     });
 
@@ -157,19 +163,20 @@ describe('module evaluate', function () {
             ]
         };
         var expectedResult = {test: subModule()};
-        var resolved = 0;
 
         var api = module.compile(null);
         expect(api).toCompareTo(expectedApi);
         api._ = node;
         api._
         .then(function (result) {
-            resolved++;
-            expect(result).toCompareTo(expectedResult);
-        })
-        .finally(function () {
-            expect(resolved).toBe(1);
-            done();
+            try {
+                expect(result).toCompareTo(expectedResult);
+                done();
+            }
+            catch(ex) {
+                expect(ex.toString()).toBe(false);
+                done();
+            }
         });
     });
 
