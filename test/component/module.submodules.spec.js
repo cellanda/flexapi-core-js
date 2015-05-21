@@ -76,8 +76,8 @@ var SubmoduleLateBindPromise = function (mapper) {
 describe('the test node selector', function () {
     it('works', function (done) {
         getChildren(fixture(), 'person', null, null, function(err, nodes) {
-            expect(nodes.length).toEqual(4);
-            expect(nodes[1].lastname).toEqual('astair');
+            expect(nodes.length).to.equal(4);
+            expect(nodes[1].lastname).to.equal('astair');
             done();
         });
     });
@@ -104,12 +104,12 @@ xdescribe('module submodules', function () {
         };
 
         module.evaluate(mapper, fixture(), logger).then(function (instance) {
-            expect(instance).not.toBeNull();
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toBe(0);
+            expect(instance).not.to.be.null;
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
         })
         .catch(function (err) {
-            expect(err).toBeUndefined();
+            expect(err).to.be.undefined;
         })
         .finally(function () {
             done();
@@ -135,12 +135,12 @@ xdescribe('module submodules', function () {
         };
 
         module.evaluate(mapper, fixture(), logger).then(function (instance) {
-            expect(instance).not.toBeNull();
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toBe(0);
+            expect(instance).not.to.be.null;
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
         })
         .catch(function (err) {
-            expect(err).toBeUndefined();
+            expect(err).to.be.undefined;
         })
         .finally(function () {
             done();
@@ -170,12 +170,12 @@ xdescribe('module submodules', function () {
         };
 
         module.evaluate(mapper, fixture(), logger).then(function (instance) {
-            expect(instance).not.toBeNull();
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toBe(0);
+            expect(instance).not.to.be.null;
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
         })
         .catch(function (err) {
-            expect(err).toBeUndefined();
+            expect(err).to.be.undefined;
         })
         .finally(function () {
             done();
@@ -203,13 +203,13 @@ xdescribe('module submodules', function () {
         }
 
         module.evaluate(mapper, fixture(), logger).then(function (instance) {
-            expect(instance).not.toBeNull();
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toBe(1);
-            expect(logger.getMessages()[0]).toCompareTo(expectedLog);
+            expect(instance).not.to.be.null;
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(1);
+            expect(logger.getMessages()[0]).to.compareTo(expectedLog);
         })
         .catch(function (err) {
-            expect(err).toBeUndefined();
+            expect(err).to.be.undefined;
         })
         .finally(function () {
             done();
@@ -237,12 +237,12 @@ xdescribe('module submodules', function () {
         };
 
         module.evaluate(mapper, fixture(), logger).then(function (instance) {
-            expect(instance).not.toBeNull();
-            expect(instance).toCompareTo(expectedInstance);
-            expect(logger.getMessages().length).toBe(0);
+            expect(instance).not.to.be.null;
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
         })
         .catch(function (err) {
-            expect(err).toBeUndefined();
+            expect(err).to.be.undefined;
         })
         .finally(function () {
             done();

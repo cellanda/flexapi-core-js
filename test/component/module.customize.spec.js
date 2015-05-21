@@ -18,7 +18,7 @@ describe('module customize', function () {
     });
 
 
-    it('evaluates module with custom selector', function (done) {
+    it('evaluates module with custom selector', function () {
         myMapper.settings.property.onGet('children').call(getChildren);
         var subModule = {
             found: myMapper.property.get.children('firstname').required(false)
@@ -39,21 +39,14 @@ describe('module customize', function () {
             }
         };
 
-        module.evaluate(myMapper, tmpFixture, logger)
+        return module.evaluate(myMapper, tmpFixture, logger)
         .then(function (instance) {
-            try {
-                expect(instance).toCompareTo(expectedInstance);
-                expect(logger.getMessages().length).toEqual(0);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
         });
     });
 
-    it('evaluates module with custom selector set as unique', function (done) {
+    it('evaluates module with custom selector set as unique', function () {
         myMapper.settings.property.onGet('children').call(getChildren).unique();
         var subModule = {
             found: myMapper.property.get.children('firstname').required(false)
@@ -64,17 +57,10 @@ describe('module customize', function () {
 
         var expectedInstance = {test: {found: 'john'}};
 
-        module.evaluate(myMapper, tmpFixture, logger)
+        return module.evaluate(myMapper, tmpFixture, logger)
         .then(function (instance) {
-            try {
-                expect(instance).toCompareTo(expectedInstance);
-                expect(logger.getMessages().length).toEqual(0);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
         });
     });
 

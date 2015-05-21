@@ -25,7 +25,9 @@
     "underscore": "~1.5.2"
   },
   "devDependencies": {
-    "jasmine-node": "~1.11.0"
+    "chai": "^2.3.0",
+    "chai-spies": "^0.6.0",
+    "mocha": "^2.2.5"
   },
   "repository": {
     "type": "git",

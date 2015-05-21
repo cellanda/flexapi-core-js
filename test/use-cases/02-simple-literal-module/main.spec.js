@@ -83,7 +83,7 @@ describe('use-cases simple literal module', function () {
                 employeeMiddlenamesRequired: null
             };
             //console.log('result\n', result);
-            expect(transformedObject).toCompareTo(expectedResult);
+            expect(transformedObject).to.compareTo(expectedResult);
             done();
         });
     });

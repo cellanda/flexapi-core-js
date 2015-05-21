@@ -12,8 +12,8 @@ var scenarios;
 describe('the test node selector', function () {
     it('works', function (done) {
         getChildren(fixture(), 'person', null, null, function(err, nodes) {
-            expect(nodes.length).toEqual(4);
-            expect(nodes[1].lastname).toEqual('astair');
+            expect(nodes.length).to.equal(4);
+            expect(nodes[1].lastname).to.equal('astair');
             done();
         });
     });
@@ -40,7 +40,7 @@ describe('module deep evaluate', function () {
     });
 
 
-    it('evaluates a child property', function (done) {
+    it('evaluates a child property', function () {
         var subModule = {
             person: myMapper.property.get(getChildren, 'person')(0).content({
                 name: myMapper.property.get(getChildren, 'firstname')(0)
@@ -51,21 +51,14 @@ describe('module deep evaluate', function () {
 
         var api = module.compile(myMapper, logger)
         api._ = fixture();
-        api.test.person._
+        return api.test.person._
         .then(function (instance) {
-            try {
-                expect(instance).toCompareTo(expectedInstance.test.person[0]);
-                expect(logger.getMessages().length).toEqual(0);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(instance).to.compareTo(expectedInstance.test.person[0]);
+            expect(logger.getMessages().length).to.equal(0);
         });
     });
 
-    it('evaluates a property array', function (done) {
+    it('evaluates a property array', function () {
         var subModule = {
             person: myMapper.property.get(getChildren, 'person').content({
                 name: myMapper.property.get(getChildren, 'firstname')(0)
@@ -76,21 +69,14 @@ describe('module deep evaluate', function () {
 
         var api = module.compile(myMapper, logger)
         api._ = fixture();
-        api.test.person._
+        return api.test.person._
         .then(function (instance) {
-            try {
-                expect(instance).toCompareTo(expectedInstance.test.person);
-                expect(logger.getMessages().length).toEqual(1);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(instance).to.compareTo(expectedInstance.test.person);
+            expect(logger.getMessages().length).to.equal(1);
         });
     });
 
-    it('evaluates a child of a property array', function (done) {
+    it('evaluates a child of a property array', function () {
         var subModule = {
             person: myMapper.property.get(getChildren, 'person').content({
                 name: myMapper.property.get(getChildren, 'firstname')(0)
@@ -101,21 +87,14 @@ describe('module deep evaluate', function () {
 
         var api = module.compile(myMapper, logger)
         api._ = fixture();
-        api.test.person(1)._
+        return api.test.person(1)._
         .then(function (instance) {
-            try {
-                expect(instance).toCompareTo(expectedInstance.test.person[1]);
-                expect(logger.getMessages().length).toEqual(1);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(instance).to.compareTo(expectedInstance.test.person[1]);
+            expect(logger.getMessages().length).to.equal(1);
         });
     });
 
-    it('evaluates a property of a child of a property array', function (done) {
+    it('evaluates a property of a child of a property array', function () {
         var myMapper = mapper.clone();
         var subModule = {
             person: myMapper.property.get(getChildren, 'person').content({
@@ -129,17 +108,10 @@ describe('module deep evaluate', function () {
         api._ = fixture();
         var name1 = api.test.person(1).name;
         var name2 = api.test.person(2).name;   // attempt to confuse the hierarchy by requesting item(2)
-        name1._
+        return name1._
         .then(function (instance) {
-            try {
-                expect(instance).toCompareTo(expectedInstance.test.person[1].name);
-                expect(logger.getMessages().length).toEqual(1);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(instance).to.compareTo(expectedInstance.test.person[1].name);
+            expect(logger.getMessages().length).to.equal(1);
         });
     });
 });

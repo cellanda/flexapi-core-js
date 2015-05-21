@@ -12,8 +12,8 @@ var scenarios;
 describe('the test node selector', function () {
     it('works', function (done) {
         getChildren(fixture(), 'person', null, null, function(err, nodes) {
-            expect(nodes.length).toEqual(4);
-            expect(nodes[1].lastname).toEqual('astair');
+            expect(nodes.length).to.equal(4);
+            expect(nodes[1].lastname).to.equal('astair');
             done();
         });
     });
@@ -64,7 +64,7 @@ describe('property', function () {
         scenarios.forEach(function (scenario) {
             var description = scenario.description + '(test case: ' + scenario.test + ')';
 
-            it('with a unique single level selector and ' + description, function (done) {
+            it('with a unique single level selector and ' + description, function () {
                 var property = new Property(null);
                 property.selector.addGet('children', getChildren, 'person', scenario.index);
                 property.module = scenario.module;
@@ -72,23 +72,16 @@ describe('property', function () {
                 var logger = new Logger();
 
                 var api = property.compile(null, logger);
-                expect(api).toCompareTo(scenario.expectedApi);
+                expect(api).to.compareTo(scenario.expectedApi);
 
                 api._ = fixture();
-                api._
+                return api._
                 .then(function (result) {
-                    try {
-                        expect(result).toCompareTo(scenario.expectedResult);
-                        done();
-                    }
-                    catch(ex) {
-                        expect(ex.toString()).toBe(false);
-                        done();
-                    }
+                    expect(result).to.compareTo(scenario.expectedResult);
                 });
             });
 
-            it('with an indexed list single level selector and ' + description, function (done) {
+            it('with an indexed list single level selector and ' + description, function () {
                 var property = new Property(null);
                 property.selector.addGet('children', getChildren, 'person');
                 property.module = scenario.module;
@@ -96,21 +89,14 @@ describe('property', function () {
                 var logger = new Logger();
 
                 var api = property.compile(null, logger);
-                expect(typeof(api)).toBe('function');
+                expect(typeof(api)).to.equal('function');
 
-                expect(api(scenario.index)).toCompareTo(scenario.expectedApi);
+                expect(api(scenario.index)).to.compareTo(scenario.expectedApi);
 
                 api._ = fixture();
-                api(scenario.index)._
+                return api(scenario.index)._
                 .then(function (result) {
-                    try {
-                        expect(result).toCompareTo(scenario.expectedResult);
-                        done();
-                    }
-                    catch(ex) {
-                        expect(ex.toString()).toBe(false);
-                        done();
-                    }
+                    expect(result).to.compareTo(scenario.expectedResult);
                 });
             });
 
@@ -120,7 +106,7 @@ describe('property', function () {
 
     describe('evaluates simple property with an unindexed list single level selector and', function () {
 
-        it('no module', function (done) {
+        it('no module', function () {
             var property = new Property(null);
             property.selector.addGet('children', getChildren, 'person');
 
@@ -146,25 +132,18 @@ describe('property', function () {
             ];
 
             var api = property.compile(null, logger);
-            expect(typeof(api)).toBe('function');
+            expect(typeof(api)).to.equal('function');
 
-            expect(api(0)).toCompareTo(expectedApi);
+            expect(api(0)).to.compareTo(expectedApi);
 
             api._ = fixture();
-            api._
+            return api._
             .then(function (result) {
-                try {
-                    expect(result).toCompareTo(expectedResult);
-                    done();
-                }
-                catch(ex) {
-                    expect(ex.toString()).toBe(false);
-                    done();
-                }
+                expect(result).to.compareTo(expectedResult);
             });
         });
 
-        it('a constant object module', function (done) {
+        it('a constant object module', function () {
             var property = new Property(null);
             property.selector.addGet('children', getChildren, 'person');
             property.module = {content: {test: 'value'}};
@@ -175,21 +154,14 @@ describe('property', function () {
             var expectedResult = [{test: 'value'},{test: 'value'}, {test: 'value'}, {test: 'value'}];
 
             var api = property.compile(null, logger);
-            expect(typeof(api)).toBe('function');
+            expect(typeof(api)).to.equal('function');
 
-            expect(api(0)).toCompareTo(expectedApi);
+            expect(api(0)).to.compareTo(expectedApi);
 
             api._ = fixture();
-            api._
+            return api._
             .then(function (result) {
-                try {
-                    expect(result).toCompareTo(expectedResult);
-                    done();
-                }
-                catch(ex) {
-                    expect(ex.toString()).toBe(false);
-                    done();
-                }
+                expect(result).to.compareTo(expectedResult);
             });
         });
 

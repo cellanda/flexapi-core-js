@@ -11,8 +11,8 @@ var scenarios;
 describe('the test node selector', function () {
     it('works', function (done) {
         getChildren(fixture(), 'person', null, null, function(err, nodes) {
-            expect(nodes.length).toEqual(4);
-            expect(nodes[1].lastname).toEqual('astair');
+            expect(nodes.length).to.equal(4);
+            expect(nodes[1].lastname).to.equal('astair');
             done();
         });
     });
@@ -21,21 +21,14 @@ describe('the test node selector', function () {
 
 describe('module evaluate', function () {
 
-    it('evaluates an undefined module', function (done) {
+    it('evaluates an undefined module', function () {
         var module = new Module(undefined);
 
         var expectedResult = undefined;
 
-        module.evaluate(null, fixture())
+        return module.evaluate(null, fixture())
         .then(function (result) {
-            try {
-                expect(result).toCompareTo(fixture());
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(result).to.compareTo(fixture());
         });
     });
 
@@ -63,7 +56,7 @@ describe('module evaluate', function () {
     ];
     scenarios.forEach(function (scenario) {
         var description = 'test case: ' + scenario.test + ': evaulates ' + scenario.description;
-        it(description, function (done) {
+        it(description, function () {
             var module = new Module(scenario.module);
             var node = {anything: null};
 
@@ -72,23 +65,16 @@ describe('module evaluate', function () {
 
 
             var api = module.compile(null);
-            expect(api).toCompareTo(expectedApi);
+            expect(api).to.compareTo(expectedApi);
             api._ = node;
-            api._
+            return api._
             .then(function (result) {
-                try {
-                    expect(result).toCompareTo(expectedResult);
-                    done();
-                }
-                catch(ex) {
-                    expect(ex.toString()).toBe(false);
-                    done();
-                }
+                expect(result).to.compareTo(expectedResult);
             });
         });
     });
 
-    it('evaluates a complex static object module', function (done) {
+    it('evaluates a complex static object module', function () {
         var subModule = function () {
             return {
                 n1: [
@@ -119,22 +105,15 @@ describe('module evaluate', function () {
         var expectedResult = {test: subModule()};
 
         var api = module.compile(null);
-        expect(api).toCompareTo(expectedApi);
+        expect(api).to.compareTo(expectedApi);
         api._ = node;
-        api._
+        return api._
         .then(function (result) {
-            try {
-                expect(result).toCompareTo(expectedResult);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(result).to.compareTo(expectedResult);
         });
     });
 
-    it('evaluates a complex static array module', function (done) {
+    it('evaluates a complex static array module', function () {
         var subModule = function () {
             return [
                 [
@@ -165,18 +144,11 @@ describe('module evaluate', function () {
         var expectedResult = {test: subModule()};
 
         var api = module.compile(null);
-        expect(api).toCompareTo(expectedApi);
+        expect(api).to.compareTo(expectedApi);
         api._ = node;
-        api._
+        return api._
         .then(function (result) {
-            try {
-                expect(result).toCompareTo(expectedResult);
-                done();
-            }
-            catch(ex) {
-                expect(ex.toString()).toBe(false);
-                done();
-            }
+            expect(result).to.compareTo(expectedResult);
         });
     });
 

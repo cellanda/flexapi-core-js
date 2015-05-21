@@ -151,9 +151,29 @@ var helpers = {
 
 };
 
+var chai = require("chai");
+chai.use(require("chai-spies"));
+global.spy = chai.spy;
+global.expect = chai.expect;
 beforeEach(function () {
-    this.addMatchers({
-        toCompareTo: function (expected) {
+
+  chai.Assertion.addChainableMethod('compareTo', function(expected) {
+    var actual = this._obj;
+    var pass;
+    var message;
+    try {
+        pass = helpers.compare(actual, expected);
+    }
+    catch (ex) {
+        pass = false;
+        message = ex.toString();
+    }
+
+    return this.assert(pass, message);
+  });
+
+/*    this.addMatchers({
+        to.compareTo: function (expected) {
             var actual = this.actual;
             var pass;
             var message;
@@ -170,6 +190,7 @@ beforeEach(function () {
             return pass;
         }
     });
+*/
 });
 
 module.exports = helpers;

@@ -1,0 +1,7 @@
+--reporter spec
+--timeout 2s
+--growl
+--check-leaks
+--recursive
+--ui bdd
+./test/component/*.spec.js

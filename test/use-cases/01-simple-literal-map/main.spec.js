@@ -108,7 +108,7 @@ describe('use-cases simple literal map', function () {
                 employeeMiddlenamesRequired: null
             };
             //console.log('result\n', transformedObject);
-            expect(transformedObject).toCompareTo(expectedResult);
+            expect(transformedObject).to.compareTo(expectedResult);
 
             done();
         });
@@ -137,7 +137,7 @@ describe('use-cases simple literal map', function () {
                 }
             ];
             //console.log('result\n', transformedObject);
-            expect(transformedObject).toCompareTo(expectedResult);
+            expect(transformedObject).to.compareTo(expectedResult);
 
             done();
         });
@@ -149,7 +149,7 @@ describe('use-cases simple literal map', function () {
         transformed.people(1).firstname._.then( function (transformedObject) {
             var expectedResult = 'fred';
             //console.log('result\n', transformedObject);
-            expect(transformedObject).toCompareTo(expectedResult);
+            expect(transformedObject).to.compareTo(expectedResult);
 
             done();
         });

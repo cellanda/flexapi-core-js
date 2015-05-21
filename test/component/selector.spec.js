@@ -10,8 +10,8 @@ var fixture = fixtures.sampleObjectFixture();
 describe('the test node selector', function () {
     it('works', function (done) {
         getChildren(fixture, 'person', null, null, function(err, nodes) {
-            expect(nodes.length).toEqual(4);
-            expect(nodes[1].lastname).toEqual('astair');
+            expect(nodes.length).to.equal(4);
+            expect(nodes[1].lastname).to.equal('astair');
             done();
         });
     });
@@ -25,36 +25,36 @@ describe('selector', function () {
         var step;
 
         selector.addGet('children', getChildren, 'person', 1);
-        expect(selector.$firstStep).toBeDefined();
-        expect(selector.$lastStep).toBeDefined();
-        expect(selector.$firstStep.$next).toBeUndefined();
+        expect(selector.$firstStep).to.not.be.undefined;
+        expect(selector.$lastStep).to.not.be.undefined;
+        expect(selector.$firstStep.$next).to.be.undefined;
 
         step = selector.$firstStep;
-        expect(selector.$lastStep).toEqual(step);
-        expect(step.$next).toBeUndefined();
-        expect(step.$name).toBe('children');
-        expect(step.$index).toBe(1);
-        expect(step.$query).toBe('person');
+        expect(selector.$lastStep).to.equal(step);
+        expect(step.$next).to.be.undefined;
+        expect(step.$name).to.equal('children');
+        expect(step.$index).to.equal(1);
+        expect(step.$query).to.equal('person');
 
 
         selector.addGet('children', getChildren, 'person1', 2);
-        expect(selector.$firstStep).toBeDefined();
-        expect(selector.$lastStep).toBeDefined();
-        expect(selector.$lastStep).not.toEqual(selector.$firstStep);
-        expect(selector.$firstStep.$next).toBeDefined();
-        expect(selector.$lastStep).toEqual(selector.$firstStep.$next);
+        expect(selector.$firstStep).to.not.be.undefined;
+        expect(selector.$lastStep).to.not.be.undefined;
+        expect(selector.$lastStep).not.to.equal(selector.$firstStep);
+        expect(selector.$firstStep.$next).to.not.be.undefined;
+        expect(selector.$lastStep).to.equal(selector.$firstStep.$next);
 
         step = selector.$firstStep;
-        expect(selector.$lastStep).not.toEqual(step);
-        expect(step.$next).toBeDefined();
-        expect(step.$index).toBe(1);
-        expect(step.$query).toBe('person');
+        expect(selector.$lastStep).not.to.equal(step);
+        expect(step.$next).to.not.be.undefined;
+        expect(step.$index).to.equal(1);
+        expect(step.$query).to.equal('person');
 
         step = step.$next;
-        expect(selector.$lastStep).toEqual(step);
-        expect(step.$next).toBeUndefined();
-        expect(step.$index).toBe(2);
-        expect(step.$query).toBe('person1');
+        expect(selector.$lastStep).to.equal(step);
+        expect(step.$next).to.be.undefined;
+        expect(step.$index).to.equal(2);
+        expect(step.$query).to.equal('person1');
     });
 
     it('evaluates 1 indexed step', function (done) {
@@ -63,9 +63,9 @@ describe('selector', function () {
         selector.addLogger(logger);
         selector.addGet('children', getChildren, 'person', 1);
         selector.evaluate(fixture).done(function (node) {
-            expect(node.firstname).toEqual('fred');
-            expect(node.lastname).toEqual('astair');
-            expect(logger.getMessages().length).toEqual(0);
+            expect(node.firstname).to.equal('fred');
+            expect(node.lastname).to.equal('astair');
+            expect(logger.getMessages().length).to.equal(0);
             done();
         });
     });
@@ -77,8 +77,8 @@ describe('selector', function () {
         selector.addGet('children', getChildren, 'person', 1);
         selector.addGet('children', getChildren, 'firstname', 0);
         selector.evaluate(fixture).done(function (node) {
-            expect(node).toEqual('fred');
-            expect(logger.getMessages().length).toEqual(0);
+            expect(node).to.equal('fred');
+            expect(logger.getMessages().length).to.equal(0);
             done();
         });
     });
@@ -89,11 +89,11 @@ describe('selector', function () {
         selector.addLogger(logger);
         selector.addGet('children', getChildren, 'person');
         selector.evaluate(fixture).done(function (nodeList) {
-            expect(nodeList.length).toEqual(4);
-            expect(nodeList[1].firstname).toEqual('fred');
-            expect(nodeList[1].lastname).toEqual('astair');
-            expect(nodeList[2].firstname).toBeUndefined();
-            expect(logger.getMessages().length).toEqual(0);
+            expect(nodeList.length).to.equal(4);
+            expect(nodeList[1].firstname).to.equal('fred');
+            expect(nodeList[1].lastname).to.equal('astair');
+            expect(nodeList[2].firstname).to.be.undefined;
+            expect(logger.getMessages().length).to.equal(0);
             done();
         });
     });
@@ -105,9 +105,9 @@ describe('selector', function () {
         selector.addGet('children', getChildren, 'person');
         selector.addGet('children', getChildren, 'firstname', 0);
         selector.evaluate(fixture).done(function (nodeList) {
-            expect(nodeList.length).toEqual(3);
-            expect(nodeList[1]).toEqual('fred');
-            expect(logger.getMessages().length).toEqual(1);
+            expect(nodeList.length).to.equal(3);
+            expect(nodeList[1]).to.equal('fred');
+            expect(logger.getMessages().length).to.equal(1);
             done();
         });
     });
@@ -119,9 +119,9 @@ describe('selector', function () {
         selector.addGet('children', getChildren, 'person');
         selector.addGet('children', getChildren, 'firstname', 9);
         selector.evaluate(fixture).done(function (nodeList) {
-            expect(nodeList.length).toEqual(0);
-            expect(nodeList[1]).toEqual(undefined);
-            expect(logger.getMessages().length).toEqual(4);
+            expect(nodeList.length).to.equal(0);
+            expect(nodeList[1]).to.equal(undefined);
+            expect(logger.getMessages().length).to.equal(4);
             done();
         });
     });
@@ -133,9 +133,9 @@ describe('selector', function () {
         selector.addGet('children', getChildren, 'employees');
         selector.addGet('children', getChildren, 'firstname');
         selector.evaluate(fixture).done(function (nodeList) {
-            expect(nodeList.length).toEqual(1);
-            expect(nodeList[0]).toEqual('stanley');
-            expect(logger.getMessages().length).toEqual(0);
+            expect(nodeList.length).to.equal(1);
+            expect(nodeList[0]).to.equal('stanley');
+            expect(logger.getMessages().length).to.equal(0);
             done();
         });
     });
@@ -162,10 +162,10 @@ describe('selector', function () {
         selector.addGet('children', getChildren, 'x', 1);
         selector.addGet('moreChildren', getChildren, 'y', 1);
         selector.evaluate(fixture, isRequired).done(function (node) {
-            expect(node).toBeNull();
-            expect(logger.getMessages().length).toEqual(2);
-            expect(logger.getMessages()[0]).toCompareTo(expectedLogX);
-            expect(logger.getMessages()[1]).toCompareTo(expectedLogY);
+            expect(node).to.be.null;
+            expect(logger.getMessages().length).to.equal(2);
+            expect(logger.getMessages()[0]).to.compareTo(expectedLogX);
+            expect(logger.getMessages()[1]).to.compareTo(expectedLogY);
             done();
         });
     });
@@ -182,9 +182,9 @@ describe('selector', function () {
         selector.addGet('children', getChildren, 'xx');
 
         clone.evaluate(fixture).done(function (nodeList) {
-            expect(nodeList.length).toEqual(1);
-            expect(nodeList[0]).toEqual('stanley');
-            expect(logger.getMessages().length).toEqual(0);
+            expect(nodeList.length).to.equal(1);
+            expect(nodeList[0]).to.equal('stanley');
+            expect(logger.getMessages().length).to.equal(0);
             done();
         });
     });
