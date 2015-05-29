@@ -6,13 +6,13 @@ var DateTime = require('./datetime');
 
 pm.settigs.logger = new Logger();
 
-pm.settings.property.onGet('money').unique().call(function (node, query, index, logger) {
-    var val = new Money('' + node, query);
+pm.settings.property.onGet('money').unique().call(function (node, args, index, logger) {
+    var val = new Money('' + node, args[0]);
     val = val.amount !== null ? val : null;
     return [val];
 });
 
-pm.settings.property.onGet('datetime').unique().call(function (node, query, index, logger) {
+pm.settings.property.onGet('datetime').unique().call(function (node, args, index, logger) {
     if (typeof(node) === 'string') {
         return [DateTime.parse(node)];
     }
@@ -65,7 +65,7 @@ var pageMaps = {
             continue: mapper.property.module(function (mapper, compiler) {
                 var subModule = compiler.compile({
                     content: {
-                        characterPos: mapper.property.$required.$is.children('#frmentermemorableinformation1 label').html.split(' ')(1),
+                        characterPos: mapper.property.$required.$is.children('#frmentermemorableinformation1 label').$each.html.split(' ')(1),
                         character: [
                             mapper.property.required.get.child('[name=frmentermemorableinformation1\\:strEnterMemorableInformation_memInfo1]'),
                             mapper.property.required.get.child('[name=frmentermemorableinformation1\\:strEnterMemorableInformation_memInfo2]'),

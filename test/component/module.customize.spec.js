@@ -64,4 +64,23 @@ describe('module customize', function () {
         });
     });
 
+    it('evaluates module with multiple custom selectors', function () {
+        myMapper.settings.property.onGet('child1').call(getChildren).unique();
+        myMapper.settings.property.onGet('child2').call(getChildren).unique();
+        var subModule = {
+            found: myMapper.property.get.child1('customers').get.child2('firstname').required(false)
+        };
+        var tmpFixture = fixture;
+        var logger = new Logger();
+        var module = new Module({content: {test: subModule}});
+
+        var expectedInstance = {test: {found: 'john'}};
+
+        return module.evaluate(myMapper, tmpFixture, logger)
+        .then(function (instance) {
+            expect(instance).to.compareTo(expectedInstance);
+            expect(logger.getMessages().length).to.equal(0);
+        });
+    });
+
 });

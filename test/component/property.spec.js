@@ -11,7 +11,7 @@ var scenarios;
 
 describe('the test node selector', function () {
     it('works', function (done) {
-        getChildren(fixture(), 'person', null, null, function(err, nodes) {
+        getChildren(fixture(), ['person'], null, null, function(err, nodes) {
             expect(nodes.length).to.equal(4);
             expect(nodes[1].lastname).to.equal('astair');
             done();
@@ -66,7 +66,7 @@ describe('property', function () {
 
             it('with a unique single level selector and ' + description, function () {
                 var property = new Property(null);
-                property.selector.addGet('children', getChildren, 'person', scenario.index);
+                property.selector.addGet('children', getChildren, ['person'], scenario.index);
                 property.module = scenario.module;
 
                 var logger = new Logger();
@@ -83,7 +83,7 @@ describe('property', function () {
 
             it('with an indexed list single level selector and ' + description, function () {
                 var property = new Property(null);
-                property.selector.addGet('children', getChildren, 'person');
+                property.selector.addGet('children', getChildren, ['person']);
                 property.module = scenario.module;
 
                 var logger = new Logger();
@@ -108,7 +108,7 @@ describe('property', function () {
 
         it('no module', function () {
             var property = new Property(null);
-            property.selector.addGet('children', getChildren, 'person');
+            property.selector.addGet('children', getChildren, ['person']);
 
             var logger = new Logger();
 
@@ -145,7 +145,7 @@ describe('property', function () {
 
         it('a constant object module', function () {
             var property = new Property(null);
-            property.selector.addGet('children', getChildren, 'person');
+            property.selector.addGet('children', getChildren, ['person']);
             property.module = {content: {test: 'value'}};
 
             var logger = new Logger();

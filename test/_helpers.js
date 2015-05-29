@@ -23,9 +23,9 @@ var helpers = {
         }
     },
 
-    getChildren: function (node, query, index, logger, done) {
+    getChildren: function (node, args, index, logger, done) {
         var result = [];
-        helpers.walkObject(result, '', node, query);
+        helpers.walkObject(result, '', node, args[0]);
         done(null, result);
     },
 
@@ -157,40 +157,21 @@ global.spy = chai.spy;
 global.expect = chai.expect;
 beforeEach(function () {
 
-  chai.Assertion.addChainableMethod('compareTo', function(expected) {
-    var actual = this._obj;
-    var pass;
-    var message;
-    try {
-        pass = helpers.compare(actual, expected);
-    }
-    catch (ex) {
-        pass = false;
-        message = ex.toString();
-    }
-
-    return this.assert(pass, message);
-  });
-
-/*    this.addMatchers({
-        to.compareTo: function (expected) {
-            var actual = this.actual;
-            var pass;
-            var message;
-            try {
-                pass = helpers.compare(actual, expected);
-            }
-            catch (ex) {
-                pass = false;
-                message = ex.toString();
-            }
-            if (message) {
-                this.message = function () {return message; };
-            }
-            return pass;
+    chai.Assertion.addChainableMethod('compareTo', function(expected) {
+        var actual = this._obj;
+        var pass;
+        var message;
+        try {
+            pass = helpers.compare(actual, expected);
         }
+        catch (ex) {
+            pass = false;
+            message = ex.toString();
+        }
+
+        return this.assert(pass, message);
     });
-*/
+
 });
 
 module.exports = helpers;

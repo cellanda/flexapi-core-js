@@ -75,7 +75,7 @@ var SubmoduleLateBindPromise = function (mapper) {
 
 describe('the test node selector', function () {
     it('works', function (done) {
-        getChildren(fixture(), 'person', null, null, function(err, nodes) {
+        getChildren(fixture(), ['person'], null, null, function(err, nodes) {
             expect(nodes.length).to.equal(4);
             expect(nodes[1].lastname).to.equal('astair');
             done();
